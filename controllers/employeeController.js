@@ -19,3 +19,21 @@ exports.getEmployees = async (req, res) => {
     res.status(500).json({ status: false, message: err.message });
   }
 };
+
+exports.createEmployee = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ status: false, message: errors.array()[0].msg });
+  }
+  try {
+    const employee = new Employee(req.body);
+    await employee.save();
+    res.status(201).json({
+      message: 'Employee created successfully.',
+      employee_id: employee._id
+    });
+  } catch (err) {
+    res.status(500).json({ status: false, message: err.message });
+  }
+};
+
