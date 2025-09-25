@@ -61,4 +61,7 @@ DELETE /api/v1/emp/employees?employeeid={employeeid} (Delete employee by ID)
   "department": "Design"
 }
 
-# This project is not deployed, it runs locally only.
+# This project is deployed on Vercel
+- Base URL: https://101485572-comp-3123-assignment1-fbntfj48f.vercel.app/
+- Accessing the root / will show Cannot GET / since no route is defined there.
+Please use the API endpoints above.
