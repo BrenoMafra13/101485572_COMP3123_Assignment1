@@ -37,3 +37,27 @@ exports.createEmployee = async (req, res) => {
   }
 };
 
+exports.getEmployeeById = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ status: false, message: errors.array()[0].msg });
+  }
+  try {
+    const employee = await Employee.findById(req.params.eid);
+    if (!employee) {
+      return res.status(404).json({ status: false, message: 'Employee not found' });
+    }
+    res.status(200).json({
+      employee_id: employee._id,
+      first_name: employee.first_name,
+      last_name: employee.last_name,
+      email: employee.email,
+      position: employee.position,
+      salary: employee.salary,
+      date_of_joining: employee.date_of_joining,
+      department: employee.department
+    });
+  } catch (err) {
+    res.status(500).json({ status: false, message: err.message });
+  }
+};
